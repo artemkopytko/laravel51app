@@ -1,0 +1,38 @@
+body {
+  background-color: lightblue;
+}
+.blog-posts {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.blog-post {
+  padding: 15px 10px;
+  flex-basis:25%;
+  margin: 10px;
+  background-color: #eeeeee;
+  border-radius: 3px;
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+}
+
+.blog-title {
+  text-align: center;
+}
+
+.blog-post-title {
+  font-size: 2rem;
+  font-weight:300;
+}
+
+.blog-post-body {
+
+}
+
+.blog-post-date {
+  color: gray;
+}

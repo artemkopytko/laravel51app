@@ -1,0 +1,1 @@
+{"version":3,"sources":["foo.js"],"names":[],"mappings":"AAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA","file":"all.js","sourcesContent":["Console.log(\"Hello, World!\");\nConsole.log(\"Hello, World!\");\nConsole.log(\"Hello, World!\");\nConsole.log(\"Hello, World!\");\nConsole.log(\"Hello, World!\");\nConsole.log(\"Hello, World!\");\n\n"]}
