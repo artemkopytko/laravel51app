@@ -3,29 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class PostsController extends Controller
+class SessionsController extends Controller
 {
-    /**
+	public function __construct()
+	{
+		$this->middleware('guest', ['except' => 'destroy']);
+	}
+
+	/**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function __construct()
-    {
-        $this->middleware('auth', ['except' => ['index','show']]);
-    }
-
-	public function index()
+    public function index()
     {
         //
-	    $posts = App\Post::orderBy('created_at', 'desc')->get();
-	    return view('posts.index', compact('posts'));
     }
 
     /**
@@ -35,8 +31,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        //
-		return view('posts.create');
+        return view('sessions.create');
     }
 
     /**
@@ -47,26 +42,14 @@ class PostsController extends Controller
      */
     public function store()
     {
+    	if (! auth()->attempt(['email' => request('email'),'password' => request('password')]));
+	    {
+	    	return back()->withErrors([
+	    		'message' => 'Please check and try again.'
+		    ]);
 
-	    $this->validate(request(), [
-	    	'title' => 'required',
-		    'body' => 'required'
-	    ]);
-
-//	    auth()->user()->publish(
-//	    	new App\Post(request(['title','body']))
-//		    );
-
-	    App\Post::create([
-	    	'title' => request('title'),
-	        'body' => request('body'),
-//		    'user_id' => auth()->user()->id,
-		    'user_id' => auth()->id()
-	    ]);
-
-	    // Перенаправить на другую страницу
-
-	    return redirect('/posts');
+	    }
+        return redirect('/posts');
     }
 
     /**
@@ -77,9 +60,7 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        $post = App\Post::find($id);
-
-	    return view('posts.show', compact('post'));
+        //
     }
 
     /**
@@ -111,8 +92,11 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy()
     {
         //
+	    auth()->logout();
+
+	    return redirect()->home();
     }
 }

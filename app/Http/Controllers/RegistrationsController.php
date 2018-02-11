@@ -1,31 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
 use App;
+use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class PostsController extends Controller
+class RegistrationsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function __construct()
-    {
-        $this->middleware('auth', ['except' => ['index','show']]);
-    }
-
-	public function index()
+    public function index()
     {
         //
-	    $posts = App\Post::orderBy('created_at', 'desc')->get();
-	    return view('posts.index', compact('posts'));
     }
 
     /**
@@ -35,8 +26,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        //
-		return view('posts.create');
+		return view('registration.create');
     }
 
     /**
@@ -45,28 +35,23 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(Request $request)
     {
+        $this->validate(request(), [
+        	'name' => 'required',
+	        'email' => 'required|email',
+	        'password' => 'required|confirmed'
+        ]);
 
-	    $this->validate(request(), [
-	    	'title' => 'required',
-		    'body' => 'required'
-	    ]);
+		$user = App\User::create([
+			'name' => request('name'),
+			'email' => request('email'),
+			'password' => bcrypt(request('password'))
+		]);
 
-//	    auth()->user()->publish(
-//	    	new App\Post(request(['title','body']))
-//		    );
+        auth()->login($user);
 
-	    App\Post::create([
-	    	'title' => request('title'),
-	        'body' => request('body'),
-//		    'user_id' => auth()->user()->id,
-		    'user_id' => auth()->id()
-	    ]);
-
-	    // Перенаправить на другую страницу
-
-	    return redirect('/posts');
+        return redirect('/posts');
     }
 
     /**
@@ -77,9 +62,7 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        $post = App\Post::find($id);
-
-	    return view('posts.show', compact('post'));
+        //
     }
 
     /**

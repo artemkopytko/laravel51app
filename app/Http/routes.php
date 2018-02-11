@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/tasks', 'TasksController@index');
 
@@ -28,3 +28,13 @@ Route::get('/posts/{post}', 'PostsController@show');
 Route::post('/posts', 'PostsController@store');
 
 Route::post('/posts/{id}/comments', 'CommentsController@store');
+
+Route::get('/register', 'RegistrationsController@create');
+
+Route::post('/register', 'RegistrationsController@store');
+
+Route::get('/login', 'SessionsController@create');
+
+Route::post('/login', 'SessionsController@store');
+
+Route::get('/logout', 'SessionsController@destroy');

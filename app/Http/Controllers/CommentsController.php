@@ -9,7 +9,13 @@ use App\Http\Controllers\Controller;
 
 class CommentsController extends Controller
 {
-    /**
+
+	public function __construct()
+	{
+		$this->middleware('auth', ['except' => ['index','show']]);
+	}
+
+	/**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -45,7 +51,8 @@ class CommentsController extends Controller
 
 	    App\Comment::create([
 		    'body' => request('body'),
-		    'post_id' => $request->id
+		    'post_id' => $request->id,
+		    'user_id' => auth()->user()->id
 	    ]);
 
 	    return back();
