@@ -6,6 +6,11 @@
 
         <h1>{{ $post->title }}</h1>
         <p> {{ $post->body }}</p>
+        @if(Auth::check())
+            @if(auth()->user()->id == $post->user_id)
+                <a class="btn btn-primary" href="/posts/{{ $post->id }}/edit">Edit</a>
+            @endif
+        @endif
         <hr>
 
         <small class="blog-post-date">{{ $post->created_at->toFormattedDateString() }}</small>

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Providers;
-
+use App;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +13,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        view()->composer('posts.index', function($view){
+        	$view->with('archives', App\Post::archives());
+        });
     }
 
     /**

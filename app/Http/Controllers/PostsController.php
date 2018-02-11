@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App;
+use Carbon\Carbon;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -24,8 +25,32 @@ class PostsController extends Controller
 	public function index()
     {
         //
-	    $posts = App\Post::orderBy('created_at', 'desc')->get();
-	    return view('posts.index', compact('posts'));
+	    $posts = App\Post::latest()
+	                     ->filter([
+	                     	'month' => request('month'),
+		                     'year' => request('year')])
+	                     ->get();
+//	    $posts = App\Post::latest();
+//
+//	    if($month = request('month'))
+//	    {
+//	    	$posts->whereMonth('created_at', '=', Carbon::parse($month)->month);
+//	    }
+//
+//
+//	    if($year = request('year'))
+//	    {
+//	    	$posts->whereYear('created_at', '=', $year);
+//	    }
+//
+//	    $posts = $posts->get();
+
+
+//	    $posts = App\Post::orderBy('created_at', 'desc')->get();
+	    $archives = App\Post::archives();
+
+//	    return view('posts.index', compact(['posts', 'archives']));
+		return view('posts.index', compact(['posts']));
     }
 
     /**
@@ -90,7 +115,8 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = App\Post::find($id);
+        return view('posts.edit', compact('post'));
     }
 
     /**
@@ -102,7 +128,20 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = App\Post::find($id);
+
+	    $this->validate(request(), [
+		    'title' => 'required',
+		    'body' => 'required'
+	    ]);
+
+        $post->title = request('title');
+        $post->body = request('body');
+
+        $post->save();
+
+	    return redirect()->route('posts');
+
     }
 
     /**

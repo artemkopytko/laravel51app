@@ -19,11 +19,15 @@ Route::get('/tasks/{task}', 'TasksController@show');
 
 Route::get('/about', 'AboutController@index');
 
-Route::get('/posts', 'PostsController@index');
+Route::get('/posts', 'PostsController@index')->name('posts');
 
 Route::get('/posts/create', 'PostsController@create');
 
-Route::get('/posts/{post}', 'PostsController@show');
+Route::get('/posts/{post}', 'PostsController@show')->name('posts_id');
+
+Route::get('/posts/{post}/edit', 'PostsController@edit');
+
+Route::post('/posts/{post}', 'PostsController@update');
 
 Route::post('/posts', 'PostsController@store');
 
