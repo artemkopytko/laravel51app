@@ -52,7 +52,7 @@ class RegistrationsController extends Controller
         auth()->login($user);
 
 	    Mail::send('emails.welcome', ['user' => $user], function ($m) use ($user) {
-		    $m->from('hello@app.com', 'Yuor app');
+		    $m->from('admin@artemkopytko.com', 'Thanks for signing up!');
 		    $m->to($user->email, $user->name)->subject('Welcome');
 	    });
 
