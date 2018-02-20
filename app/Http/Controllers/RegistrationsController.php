@@ -51,10 +51,10 @@ class RegistrationsController extends Controller
 
         auth()->login($user);
 
-//	    Mail::send('emails.welcome', ['user' => $user], function ($m) use ($user) {
-//		    $m->from('hello@app.com', 'Yuor app');
-//		    $m->to($user->email, $user->name)->subject('Welcome');
-//	    });
+	    Mail::send('emails.welcome', ['user' => $user], function ($m) use ($user) {
+		    $m->from('hello@app.com', 'Yuor app');
+		    $m->to($user->email, $user->name)->subject('Welcome');
+	    });
 
 //	    Mail::raw('Welcome!', function($message)
 //		{
