@@ -8,6 +8,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/posts.css">
+    <link rel="stylesheet" href="/css/app.css">
     <link rel="stylesheet" href="/css/general.css">
 </head>
 <body>
@@ -16,6 +17,12 @@
 
     <div class="content">
         @include('layouts.nav')
+
+        @if($flash = session('message'))
+            <div id="flash-message" class="alert alert-success" role="alert">
+                {{ $flash }}
+            </div>
+        @endif
 
         <div class="container">
             @yield('content')

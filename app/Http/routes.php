@@ -11,7 +11,14 @@
 |
 */
 
+
 Route::get('/', 'HomeController@index')->name('home');
+
+//Mail::raw('Sending emails with Mailgun and Laravel is easy!', function($message)
+//{
+//	$message->from("autoreplyartemkopytko@gmail.com");
+//	$message->to('kopytkoartem@gmail.com');
+//});
 
 Route::get('/tasks', 'TasksController@index');
 
@@ -26,6 +33,8 @@ Route::get('/posts/create', 'PostsController@create');
 Route::get('/posts/{post}', 'PostsController@show')->name('posts_id');
 
 Route::get('/posts/{post}/edit', 'PostsController@edit');
+
+Route::get('/posts/tags/{tag}', 'TagsController@index');
 
 Route::post('/posts/{post}', 'PostsController@update');
 

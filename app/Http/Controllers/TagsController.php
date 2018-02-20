@@ -2,24 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App;
-
 use Illuminate\Http\Request;
+use App\Tag;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Mail;
-use App\Http\Requests\RegistrationRequest;
 
-class RegistrationsController extends Controller
+class TagsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function index($id)
     {
-        //
+    	$tag = Tag::find($id);
+
+        return $tag;
     }
 
     /**
@@ -29,7 +24,7 @@ class RegistrationsController extends Controller
      */
     public function create()
     {
-		return view('registration.create');
+        //
     }
 
     /**
@@ -38,31 +33,9 @@ class RegistrationsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(RegistrationRequest $request)
+    public function store(Request $request)
     {
-
-		$user = App\User::create([
-			'name' => request('name'),
-			'email' => request('email'),
-			'password' => bcrypt(request('password'))
-		]);
-
-	    session()->flash('message', 'Thanks for a registration');
-
-        auth()->login($user);
-
-//	    Mail::send('emails.welcome', ['user' => $user], function ($m) use ($user) {
-//		    $m->from('hello@app.com', 'Yuor app');
-//		    $m->to($user->email, $user->name)->subject('Welcome');
-//	    });
-
-//	    Mail::raw('Welcome!', function($message)
-//		{
-//			$message->from("autoreplyartemkopytko@gmail.com");
-//			$message->to('kopytkoartem@gmail.com');
-//		});
-
-        return redirect('/posts');
+        //
     }
 
     /**

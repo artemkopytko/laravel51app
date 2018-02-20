@@ -5758,4 +5758,18 @@ body {
   -ms-flex: 0 0 auto;
   flex: 0 0 auto; }
 
+#flash-message {
+  top: 50px;
+  position: absolute;
+  right: 20px;
+  z-index: 10;
+  animation: flash-message 4s forwards; }
+
+@keyframes flash-message {
+  0% {
+    opacity: 1; }
+  100% {
+    opacity: 0;
+    display: none; } }
+
 /*# sourceMappingURL=app.css.map */

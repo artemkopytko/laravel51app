@@ -24,7 +24,8 @@ class PostsController extends Controller
 
 	public function index()
     {
-        //
+//        return session('message');
+
 	    $posts = App\Post::latest()
 	                     ->filter([
 	                     	'month' => request('month'),
@@ -90,6 +91,9 @@ class PostsController extends Controller
 	    ]);
 
 	    // Перенаправить на другую страницу
+	    session()->flash(
+	    	'message', 'Your post have been added.'
+	    );
 
 	    return redirect('/posts');
     }
